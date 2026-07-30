@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import testsRoutes from './routes/tests.routes.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import { connectDatabase } from './config/database.dev.js';
+import { connectDatabase } from './config/database.js';
 
 dotenv.config();
 
