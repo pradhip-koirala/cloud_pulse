@@ -38,3 +38,6 @@ coverage/
 # Misc
 .cache/
 .temp/
+*.env
+test-*.js
+test-*.html
