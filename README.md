@@ -10,14 +10,12 @@ Try it now! No installation required.
 
 ## Status
 
-✅ **All 8 Phases Complete** — Production-ready!  
+✅ **Production-Ready and Deployed!**  
 📊 Dashboard with charts and analytics  
 🔄 Multi-URL comparison view  
 📱 Responsive design for mobile, tablet, and desktop  
 ♿ Accessibility features (ARIA labels, keyboard navigation)  
-🌐 **Deployed to production** (Vercel + Render + MongoDB Atlas)
-
-See `PROJECT_SUMMARY.md` for complete project overview and `docs/phases.md` for the build roadmap.
+🌐 **Live on production** (Vercel + Render + MongoDB Atlas)
 
 ## Features
 
@@ -159,56 +157,70 @@ All three services offer free tiers suitable for personal projects and testing.
 
 ## Testing
 
-### Integration Test
+Run the integration test script:
 ```bash
+chmod +x test-integration.sh
 ./test-integration.sh
 ```
 
-### Build Test
-```bash
-cd frontend && npm run build
-cd ../backend && npm start
-```
+This will test:
+- Backend health endpoint
+- Frontend build process
+- API endpoint connectivity
 
 ## Project Structure
 
 ```
-cloudpulse/
-├── frontend/          # React app (Vite + Tailwind)
+cloud_pulse/
+├── backend/              # Express API server
+│   ├── config/          # Database configuration
+│   ├── controllers/     # Route handlers
+│   ├── middleware/      # Error handling, validation
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # API routes
+│   ├── services/        # Business logic
+│   ├── .env.example     # Environment template
+│   ├── package.json
+│   └── server.js        # Entry point
+│
+├── frontend/            # React application
 │   ├── src/
-│   │   ├── components/    # Reusable UI components
-│   │   ├── charts/        # Chart.js components
-│   │   ├── pages/         # Route pages (Home, Dashboard, Compare)
-│   │   ├── services/      # API client
-│   │   └── utils/         # Formatters and helpers
-│   └── package.json
+│   │   ├── charts/      # Chart.js components
+│   │   ├── components/  # Reusable UI components
+│   │   ├── pages/       # Route pages (Home, Dashboard, Compare)
+│   │   ├── services/    # API client
+│   │   ├── utils/       # Helper functions
+│   │   ├── App.jsx      # Main app component
+│   │   └── main.jsx     # Entry point
+│   ├── .env.example     # Environment template
+│   ├── index.html
+│   ├── package.json
+│   ├── tailwind.config.js
+│   ├── vercel.json      # Vercel deployment config
+│   └── vite.config.js
 │
-├── backend/           # Express API
-│   ├── routes/            # API routes
-│   ├── controllers/       # Route handlers
-│   ├── models/            # Mongoose schemas
-│   ├── middleware/        # Error handling, validation
-│   ├── services/          # Business logic (latency measurement)
-│   ├── config/            # Database connection
-│   └── server.js
+├── docs/
+│   └── architecture.md  # Technical architecture
 │
-├── docs/              # Project documentation
-│   ├── memory.md          # Progress tracker
-│   ├── phases.md          # Build roadmap
-│   ├── architecture.md    # Technical architecture
-│   └── rules.md           # Development constraints
-│
+├── .gitignore
+├── DEPLOYMENT.md        # Deployment guide
+├── LICENSE
 └── README.md
 ```
 
 ## API Endpoints
 
-- `POST /api/tests` - Run a latency test
-- `GET /api/tests` - Get test history (with pagination and filtering)
-- `GET /api/stats?url=<url>` - Get statistics for a URL
-- `DELETE /api/tests/:id` - Delete a test record
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/tests` | Run a latency test for a URL |
+| `GET` | `/api/tests` | Get test history (with pagination & filtering) |
+| `GET` | `/api/stats?url=<url>` | Get statistics for a specific URL |
+| `DELETE` | `/api/tests/:id` | Delete a test record |
+| `GET` | `/health` | Backend health check |
 
-See `docs/architecture.md` for detailed API documentation.
+**Base URL (Production)**: `https://cloud-pulse-40uq.onrender.com`
+
+For detailed API documentation, see `docs/architecture.md`.
 
 ## Security
 
@@ -231,13 +243,11 @@ See `docs/architecture.md` for detailed API documentation.
 
 ## Documentation
 
-- `PROJECT_SUMMARY.md` - Complete project overview and statistics
-- `DEPLOYMENT.md` - Production deployment guide
-- `SETUP.md` - Detailed local setup guide
-- `TEST_CHECKLIST.md` - Testing validation checklist
-- `PHASE4_FEATURES.md` - Dashboard and charts documentation
-- `docs/` folder - Detailed technical documentation
-- `test-integration.sh` - Integration test script
+| Document | Description |
+|----------|-------------|
+| **[DEPLOYMENT.md](DEPLOYMENT.md)** | Complete production deployment guide |
+| **[docs/architecture.md](docs/architecture.md)** | Technical architecture and API details |
+| **[LICENSE](LICENSE)** | ISC License |
 
 ## Performance
 
@@ -252,20 +262,32 @@ ISC
 
 ## Contributing
 
-This project is complete and production-ready. If you'd like to contribute improvements:
+This project is complete and production-ready. Contributions are welcome!
+
+**To contribute:**
 1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request with clear description of changes
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Acknowledgments
-
-Built using modern web development best practices with focus on:
-- Security (SSRF protection)
-- Performance (responsive design)
-- Accessibility (WCAG 2.1 Level AA ready)
-- User Experience (intuitive interface)
+**Areas for contribution:**
+- Additional chart types
+- Export functionality (CSV, PDF)
+- User authentication
+- Email alerts for slow responses
+- Rate limiting
+- Automated testing
 
 ---
 
-**Project Status**: ✅ Complete & Production-Ready  
-**Last Updated**: August 2026
+## Contact
+
+**Repository**: https://github.com/pradhip-koirala/cloud_pulse  
+**Live Demo**: https://cloud-pulse-two.vercel.app
+
+---
+
+**Built with ❤️ using modern web technologies**
+
+*Last Updated: August 2026*
