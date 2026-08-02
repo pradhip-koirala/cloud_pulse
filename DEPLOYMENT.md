@@ -1,8 +1,89 @@
 # CloudPulse - Deployment Guide
 
-## Phase 7: Production Deployment
+## Production Deployment ✅
 
-This guide walks through deploying CloudPulse to production using MongoDB Atlas, Render (backend), and Vercel (frontend).
+CloudPulse is successfully deployed and running in production!
+
+**Live URLs:**
+- **Frontend**: https://cloud-pulse-two.vercel.app
+- **Backend API**: https://cloud-pulse-40uq.onrender.com
+- **Database**: MongoDB Atlas (cloud-hosted)
+
+This guide documents the deployment process and provides instructions for replicating or modifying the deployment.
+
+---
+
+## Current Production Configuration
+
+### Backend (Render)
+- **Service Name**: cloud-pulse-40uq
+- **URL**: https://cloud-pulse-40uq.onrender.com
+- **Region**: US
+- **Instance Type**: Free tier
+- **Root Directory**: backend
+- **Build Command**: `npm install`
+- **Start Command**: `npm start`
+
+**Environment Variables:**
+```
+PORT=5000
+MONGODB_URI=mongodb+srv://zaw_htwe:***@cloudpulse.2syvxqc.mongodb.net/?appName=cloudPulse
+CORS_ORIGIN=https://cloud-pulse-two.vercel.app
+REQUEST_TIMEOUT_MS=10000
+```
+
+### Frontend (Vercel)
+- **Project Name**: cloud-pulse-two
+- **URL**: https://cloud-pulse-two.vercel.app
+- **Framework**: Vite
+- **Root Directory**: frontend
+- **Build Command**: `npm run build`
+- **Output Directory**: dist
+
+**Environment Variables:**
+```
+VITE_API_BASE_URL=https://cloud-pulse-40uq.onrender.com/api
+```
+
+**Vercel Configuration** (`frontend/vercel.json`):
+```json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "env": {
+    "VITE_API_BASE_URL": "https://cloud-pulse-40uq.onrender.com/api"
+  }
+}
+```
+
+### Database (MongoDB Atlas)
+- **Cluster**: cloudPulse.2syvxqc
+- **Database**: cloudPulse
+- **Tier**: M0 (Free)
+- **Region**: AWS / US East
+- **Network Access**: 0.0.0.0/0 (Allow all)
+
+---
+
+## Deployment History
+
+### Initial Deployment Issues & Fixes
+
+**Problem 1**: CORS errors blocking API calls
+- **Cause**: Backend CORS_ORIGIN missing `https://` protocol
+- **Fix**: Updated to `CORS_ORIGIN=https://cloud-pulse-two.vercel.app`
+
+**Problem 2**: Frontend calling `localhost:5000` in production
+- **Cause**: Environment variable `VITE_API_BASE_URL` not being used during build
+- **Fix**: 
+  1. Added fallback logic in `api.js` to detect production mode
+  2. Created `vercel.json` with explicit environment variables
+  3. Redeployed frontend
+
+**Problem 3**: Wrong environment variable name
+- **Cause**: Using `VITE_API_URL` instead of `VITE_API_BASE_URL`
+- **Fix**: Updated `.env` files to use correct variable name
 
 ---
 
@@ -318,5 +399,67 @@ If deployment fails:
 Your CloudPulse application is now live and accessible worldwide!
 
 **Production URLs:**
-- Frontend: `https://cloudpulse.vercel.app`
-- Backend API: `https://cloudpulse-api.onrender.com`
+- **Frontend**: https://cloud-pulse-two.vercel.app
+- **Backend API**: https://cloud-pulse-40uq.onrender.com
+- **Health Check**: https://cloud-pulse-40uq.onrender.com/health
+
+**Features Working:**
+- ✅ URL latency testing
+- ✅ Test history persistence
+- ✅ Dashboard with charts
+- ✅ Multi-URL comparison
+- ✅ SSRF protection
+- ✅ Responsive design
+- ✅ All CRUD operations
+
+**Known Considerations:**
+- Render free tier sleeps after 15 minutes of inactivity (first request after sleep takes ~30 seconds)
+- MongoDB Atlas free tier limited to 512MB storage (~10,000+ test records)
+- No rate limiting implemented (consider adding for high-traffic scenarios)
+
+---
+
+## Quick Reference
+
+### Update Backend Code
+```bash
+cd backend
+# Make changes
+git add .
+git commit -m "Update backend"
+git push
+# Render auto-deploys from Git
+```
+
+### Update Frontend Code
+```bash
+cd frontend
+# Make changes
+git add .
+git commit -m "Update frontend"
+git push
+# Vercel auto-deploys from Git
+```
+
+### Check Backend Logs
+1. Go to Render dashboard
+2. Select your service
+3. Click "Logs" tab
+
+### Check Frontend Deployment
+1. Go to Vercel dashboard
+2. Select your project
+3. Check "Deployments" tab
+
+### Update Environment Variables
+**Render**: Dashboard → Environment → Edit → Save Changes → Manual Deploy
+**Vercel**: Settings → Environment Variables → Save → Redeploy
+
+---
+
+## Support & Resources
+
+- **MongoDB Atlas Docs**: https://www.mongodb.com/docs/atlas/
+- **Render Docs**: https://render.com/docs
+- **Vercel Docs**: https://vercel.com/docs
+- **Project Repo**: https://github.com/pradhip-koirala/cloud_pulse
