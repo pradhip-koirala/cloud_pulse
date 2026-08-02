@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+// Force production API URL if no env var is set
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.MODE === 'production' 
+    ? 'https://cloud-pulse-40uq.onrender.com/api' 
+    : 'http://localhost:5000/api');
 
 // Debug logging
 console.log('🔧 API Configuration:');
