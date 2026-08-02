@@ -112,6 +112,31 @@ MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/cloudpulse
 
 For detailed deployment instructions, see `DEPLOYMENT.md`.
 
+## Deployment
+
+### Production (Current)
+The application is currently deployed and running:
+- **Frontend**: https://cloud-pulse-two.vercel.app (Vercel)
+- **Backend**: https://cloud-pulse-40uq.onrender.com (Render)
+- **Database**: MongoDB Atlas (cloud-hosted)
+
+### Deploy Your Own Instance
+Want to deploy your own version? See **[DEPLOYMENT.md](DEPLOYMENT.md)** for step-by-step instructions on:
+- Setting up MongoDB Atlas (database)
+- Deploying backend to Render
+- Deploying frontend to Vercel
+- Environment configuration
+- Troubleshooting common issues
+
+**Quick Deploy Summary:**
+1. **Database**: Create free MongoDB Atlas cluster
+2. **Backend**: Deploy to Render (free tier)
+3. **Frontend**: Deploy to Vercel (free tier)
+4. **Configure**: Set environment variables
+5. **Test**: Verify production deployment
+
+All three services offer free tiers suitable for personal projects and testing.
+
 ## Usage
 
 ### Home Page
